@@ -7,13 +7,15 @@ class TurtleGame:
     def __init__(self):
         self.screen = turtle.Screen()
         self.screen.title("Kaplumbağa Kaçma Oyunu")
-        self.screen.bgcolor("white")
+        self.screen.bgcolor("CadetBlue1")
         self.screen.setup(width=800, height=800)
 
         self.score = 0
+
         self.score_display = turtle.Turtle()
         self.score_display.penup()
         self.score_display.goto(0, 320)
+
         self.update_score_display()
         self.remaining_time = 15
         self.score_display.hideturtle()
@@ -37,6 +39,7 @@ class TurtleGame:
         self.screen.onclick(self.on_click)
         self.update_timer()
     def update_score_display(self):
+
         self.score_display.clear()
         self.score_display.write(f"Skor: {self.score}", align="center", font=("Courier", 16, "normal"))
 
@@ -50,9 +53,10 @@ class TurtleGame:
         self.update_timer_display()
 
         if self.remaining_time > 0:
-            self.screen.ontimer(self.update_timer, 1000)
+            self.screen.ontimer(self.update_timer, 500)
         else:
             self.timer_display.clear()
+            self.timer_display.write(f"GAME OVER", move=False, align="center", font=("Courier", 16, "normal"))
             self.screen.onclick(None)
 
     def move_turtle(self):
@@ -64,7 +68,7 @@ class TurtleGame:
 
         elapsed_time = int(time.time() - self.start_time)
         if elapsed_time < 15:
-            self.screen.ontimer(self.move_turtle, 1000)
+            self.screen.ontimer(self.move_turtle, 500)
 
     def move_randomly(self):
         angle = random.randint(0, 360)
