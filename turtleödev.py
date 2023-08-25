@@ -23,6 +23,7 @@ class TurtleGame:
         self.timer_display.goto(0, 350)
         self.timer_display.hideturtle()
 
+
         self.turtle = turtle.Turtle()
         self.turtle.shape("turtle")
         self.turtle.color("green")
@@ -34,6 +35,25 @@ class TurtleGame:
 
         self.screen.onclick(self.on_click)
         self.update_timer()
+    def update_score_display(self):
+        self.score_display.clear()
+        self.score_display.write(f"Skor: {self.score}", align="center", font=("Courier", 16, "normal"))
+
+    def update_timer_display(self):
+        self.timer_display.clear()
+        self.timer_display.write(f"Zaman:{self.remaining_time}",move=False, align="center", font=("Courier", 16, "normal"))
+
+    def update_timer(self):
+        elapsed_time = int(time.time() - self.start_time)
+        self.remaining_time = max(15-elapsed_time, 0)
+        self.update_timer_display()
+
+        if self.remaining_time > 0:
+            self.screen.ontimer(self.update_timer, 1000)
+        else:
+            self.timer_display.clear()
+            self.screen.onclick(None)
+
     def move_turtle(self):
         x = random.randint(-190, 190)
         y = random.randint(-190, 190)
@@ -57,23 +77,7 @@ class TurtleGame:
             self.score += 1
             self.update_score_display()
 
-    def update_score_display(self):
-        self.score_display.clear()
-        self.score_display.write(f"Skor: {self.score}", align="center", font=("Courier", 16, "normal"))
 
-    def update_timer_display(self):
-        self.timer_display.write(f"Zaman:{self.remaining_time}", align="center", font=("Courier", 16, "normal"))
-
-    def update_timer(self):
-        elapsed_time = int(time.time() - self.start_time)
-        self.remaining_time = max(15-elapsed_time, 0)
-        self.update_timer_display()
-
-        if self.remaining_time > 0:
-            self.screen.ontimer(self.update_timer, 1000)
-        else:
-            self.timer_display.clear()
-            self.screen.onclick(None)
 
 if __name__ == "__main__":
     turtle_game = TurtleGame()
