@@ -27,6 +27,7 @@ class TurtleGame:
         self.turtle = turtle.Turtle()
         self.turtle.shape("turtle")
         self.turtle.color("green")
+        self.turtle.shapesize(2,2)
         self.turtle.speed(0)
         self.turtle.penup()
 
